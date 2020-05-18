@@ -84,22 +84,15 @@ function calcDuration(initial, rate, target, payment) {
 }
 
 var defaults = {
-  downPayment: 100000,
-  repayments: 1000,
+  downPayment: 150000,
+  repayments: 1200,
   interest: 0.045,
-  propertyValue: 600000,
-  rental: 500,
-  fixedOutgoings: 4000
+  propertyValue: 690000,
+  rental: 750,
+  fixedOutgoings: 5000
+};
 
-  // const querySegments = window.location.search.substring(1).split('&')
-  // const loadedValues = {}
-  // for (segment of querySegments) {
-  //   const [key, value] = segment.split('=')
-  //   loadedValues[key] = Number(value || defaults[key])
-  // }
-
-};var App = function App() {
-  // props, state = { down = 100000, repayments = 1500, interest = 0.045, value = 600000, rental = 600 }
+var App = function App() {
   var _React$useState = React.useState(defaults.downPayment),
       _React$useState2 = _slicedToArray(_React$useState, 2),
       downPayment = _React$useState2[0],
@@ -130,7 +123,7 @@ var defaults = {
       fixedOutgoings = _React$useState12[0],
       setFixedOutgoings = _React$useState12[1];
 
-  var depositPercentage = (downPayment / propertyValue * 100).toFixed() + '%';
+  var depositPercentage = downPayment / propertyValue * 100;
 
   var actualRepayments = repayments - fixedOutgoings / 52;
   var effectiveRent = rental - fixedOutgoings / 52;
@@ -147,164 +140,168 @@ var defaults = {
       "table",
       null,
       React.createElement(
-        "tr",
+        "tbody",
         null,
         React.createElement(
-          "th",
-          { colSpan: "3" },
-          "Inputs"
-        )
-      ),
-      React.createElement(
-        "tr",
-        null,
-        React.createElement("th", { colSpan: "2" })
-      ),
-      React.createElement(
-        "tr",
-        null,
-        React.createElement(
-          "td",
+          "tr",
           null,
           React.createElement(
-            "label",
-            { htmlFor: "down" },
-            "Down Payment"
+            "th",
+            { colSpan: "3" },
+            "Inputs"
           )
         ),
         React.createElement(
-          "td",
+          "tr",
           null,
-          React.createElement("input", { type: "number", step: "1000", id: "down", name: "down", value: downPayment, onChange: function onChange(e) {
-              return setDownPayment(e.target.value);
-            } })
-        )
-      ),
-      React.createElement(
-        "tr",
-        null,
-        React.createElement(
-          "td",
-          null,
-          React.createElement(
-            "label",
-            { htmlFor: "repayments" },
-            "Weekly Repayments"
-          )
+          React.createElement("th", { colSpan: "2" })
         ),
         React.createElement(
-          "td",
-          null,
-          React.createElement("input", { type: "number", step: "10", id: "repayments", name: "repayments", value: repayments, onChange: function onChange(e) {
-              return setRepayments(e.target.value);
-            } })
-        ),
-        React.createElement(
-          "td",
+          "tr",
           null,
           React.createElement(
-            "span",
+            "td",
             null,
-            "Income that can be put towards the property on an ongoing basis. Could be thought of as the approx amount that currently goes to rent and most that goes to savings. Would likely still make minimum kiwisaver contributions and keep a splash fund aside."
-          )
-        )
-      ),
-      React.createElement(
-        "tr",
-        null,
-        React.createElement(
-          "td",
-          null,
+            React.createElement(
+              "label",
+              { htmlFor: "down" },
+              "Down Payment"
+            )
+          ),
           React.createElement(
-            "label",
-            { htmlFor: "interest" },
-            "Interest Rate (p.a.)"
-          )
-        ),
-        React.createElement(
-          "td",
-          null,
-          React.createElement("input", { type: "number", step: "0.01", id: "interest", name: "interest", value: interest, onChange: function onChange(e) {
-              return setInterest(e.target.value);
-            } })
-        ),
-        React.createElement(
-          "td",
-          null,
-          React.createElement(
-            "span",
+            "td",
             null,
-            "Nominal, may be composed of several composite rates/amounts"
-          )
-        )
-      ),
-      React.createElement(
-        "tr",
-        null,
-        React.createElement(
-          "td",
-          null,
-          React.createElement(
-            "label",
-            { htmlFor: "propertyValue" },
-            "Property Value"
+            React.createElement("input", { type: "number", step: "1000", id: "down", name: "down", value: downPayment, onChange: function onChange(e) {
+                return setDownPayment(e.target.value);
+              } })
           )
         ),
         React.createElement(
-          "td",
-          null,
-          React.createElement("input", { type: "number", step: "1000", id: "propertyValue", name: "propertyValue", value: propertyValue, onChange: function onChange(e) {
-              return setPropertyValue(e.target.value);
-            } })
-        )
-      ),
-      React.createElement(
-        "tr",
-        null,
-        React.createElement(
-          "td",
+          "tr",
           null,
           React.createElement(
-            "label",
-            { htmlFor: "fixedOutgoings" },
-            "Fixed Outgoings"
-          )
-        ),
-        React.createElement(
-          "td",
-          null,
-          React.createElement("input", { type: "number", step: "100", id: "fixedOutgoings", name: "fixedOutgoings", value: fixedOutgoings, onChange: function onChange(e) {
-              return setFixedOutgoings(e.target.value);
-            } })
-        ),
-        React.createElement(
-          "td",
-          null,
-          React.createElement(
-            "span",
+            "td",
             null,
-            "Body corp, maintenance allowance, rates etc. Ongoing stable expenses associated with owning the property. These are subtracted from Weekly Repayments and Rental before paying down the mortgage."
-          )
-        )
-      ),
-      React.createElement(
-        "tr",
-        null,
-        React.createElement(
-          "td",
-          null,
+            React.createElement(
+              "label",
+              { htmlFor: "repayments" },
+              "Weekly Repayments"
+            )
+          ),
           React.createElement(
-            "label",
-            { htmlFor: "rental" },
-            "Rental Appraisal (weekly)"
+            "td",
+            null,
+            React.createElement("input", { type: "number", step: "10", id: "repayments", name: "repayments", value: repayments, onChange: function onChange(e) {
+                return setRepayments(e.target.value);
+              } })
+          ),
+          React.createElement(
+            "td",
+            null,
+            React.createElement(
+              "span",
+              null,
+              "Income that can be put towards the property on an ongoing basis. Could be thought of as the approx amount that currently goes to rent and most that goes to savings. Would likely still make minimum kiwisaver contributions and keep a splash fund aside."
+            )
           )
         ),
         React.createElement(
-          "td",
+          "tr",
           null,
-          React.createElement("input", { type: "number", step: "50", id: "rental", name: "rental", value: rental, onChange: function onChange(e) {
-              return setRental(e.target.value);
-            } })
+          React.createElement(
+            "td",
+            null,
+            React.createElement(
+              "label",
+              { htmlFor: "interest" },
+              "Interest Rate (p.a.)"
+            )
+          ),
+          React.createElement(
+            "td",
+            null,
+            React.createElement("input", { type: "number", step: "0.01", id: "interest", name: "interest", value: interest, onChange: function onChange(e) {
+                return setInterest(e.target.value);
+              } })
+          ),
+          React.createElement(
+            "td",
+            null,
+            React.createElement(
+              "span",
+              null,
+              "Nominal, may be composed of several composite rates/amounts"
+            )
+          )
+        ),
+        React.createElement(
+          "tr",
+          null,
+          React.createElement(
+            "td",
+            null,
+            React.createElement(
+              "label",
+              { htmlFor: "propertyValue" },
+              "Property Value"
+            )
+          ),
+          React.createElement(
+            "td",
+            null,
+            React.createElement("input", { type: "number", step: "1000", id: "propertyValue", name: "propertyValue", value: propertyValue, onChange: function onChange(e) {
+                return setPropertyValue(e.target.value);
+              } })
+          )
+        ),
+        React.createElement(
+          "tr",
+          null,
+          React.createElement(
+            "td",
+            null,
+            React.createElement(
+              "label",
+              { htmlFor: "fixedOutgoings" },
+              "Fixed Outgoings"
+            )
+          ),
+          React.createElement(
+            "td",
+            null,
+            React.createElement("input", { type: "number", step: "100", id: "fixedOutgoings", name: "fixedOutgoings", value: fixedOutgoings, onChange: function onChange(e) {
+                return setFixedOutgoings(e.target.value);
+              } })
+          ),
+          React.createElement(
+            "td",
+            null,
+            React.createElement(
+              "span",
+              null,
+              "Body corp, maintenance allowance, rates etc. Ongoing stable expenses associated with owning the property. These are subtracted from Weekly Repayments and Rental before paying down the mortgage."
+            )
+          )
+        ),
+        React.createElement(
+          "tr",
+          null,
+          React.createElement(
+            "td",
+            null,
+            React.createElement(
+              "label",
+              { htmlFor: "rental" },
+              "Rental Appraisal (weekly)"
+            )
+          ),
+          React.createElement(
+            "td",
+            null,
+            React.createElement("input", { type: "number", step: "50", id: "rental", name: "rental", value: rental, onChange: function onChange(e) {
+                return setRental(e.target.value);
+              } })
+          )
         )
       )
     ),
@@ -314,65 +311,69 @@ var defaults = {
       "table",
       null,
       React.createElement(
-        "tr",
+        "tbody",
         null,
         React.createElement(
-          "th",
-          { colSpan: "4" },
-          "Outputs"
-        )
-      ),
-      React.createElement(
-        "tr",
-        null,
-        React.createElement(
-          "th",
-          { style: { paddingRight: '2em' } },
-          "Deposit Percentage"
-        ),
-        React.createElement(
-          "th",
-          { style: { paddingRight: '2em' } },
-          "Initial Mortgage Value"
-        ),
-        React.createElement(
-          "th",
-          { style: { paddingRight: '2em' } },
-          "Viable Mortgage Value"
-        ),
-        React.createElement(
-          "th",
+          "tr",
           null,
-          "Time Till Viable"
-        )
-      ),
-      React.createElement(
-        "tr",
-        null,
-        React.createElement(
-          "td",
-          null,
-          depositPercentage
+          React.createElement(
+            "th",
+            { colSpan: "4" },
+            "Outputs"
+          )
         ),
         React.createElement(
-          "td",
+          "tr",
           null,
-          "$",
-          mortgageValue
+          React.createElement(
+            "th",
+            { style: { paddingRight: '2em' } },
+            "Deposit Percentage"
+          ),
+          React.createElement(
+            "th",
+            { style: { paddingRight: '2em' } },
+            "Initial Mortgage Value"
+          ),
+          React.createElement(
+            "th",
+            { style: { paddingRight: '2em' } },
+            "Viable Mortgage Value"
+          ),
+          React.createElement(
+            "th",
+            null,
+            "Time Till Viable"
+          )
         ),
         React.createElement(
-          "td",
+          "tr",
           null,
-          "$",
-          viableMortgageValue
-        ),
-        React.createElement(
-          "td",
-          null,
-          Math.floor(timeTillViable / 52),
-          " years, ",
-          Math.round(timeTillViable % 52),
-          " weeks"
+          React.createElement(
+            "td",
+            null,
+            depositPercentage.toFixed(1) + '%'
+          ),
+          React.createElement(
+            "td",
+            null,
+            "$",
+            mortgageValue
+          ),
+          React.createElement(
+            "td",
+            null,
+            "$",
+            viableMortgageValue
+          ),
+          React.createElement(
+            "td",
+            null,
+            Math.floor(timeTillViable / 52),
+            " years, ",
+            Math.round(timeTillViable % 52),
+            " weeks"
+          )
         )
       )
     ),

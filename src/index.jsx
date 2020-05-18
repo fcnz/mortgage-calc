@@ -82,23 +82,15 @@ function calcDuration(initial, rate, target, payment) {
 }
 
 const defaults = {
-  downPayment: 100000,
-  repayments: 1000,
+  downPayment: 150000,
+  repayments: 1200,
   interest: 0.045,
-  propertyValue: 600000,
-  rental: 500,
-  fixedOutgoings: 4000,
+  propertyValue: 690000,
+  rental: 750,
+  fixedOutgoings: 5000,
 }
 
-// const querySegments = window.location.search.substring(1).split('&')
-// const loadedValues = {}
-// for (segment of querySegments) {
-//   const [key, value] = segment.split('=')
-//   loadedValues[key] = Number(value || defaults[key])
-// }
-
 const App = () => {
-  // props, state = { down = 100000, repayments = 1500, interest = 0.045, value = 600000, rental = 600 }
   const [downPayment, setDownPayment] = React.useState(defaults.downPayment)
   const [repayments, setRepayments] = React.useState(defaults.repayments)
   const [interest, setInterest] = React.useState(defaults.interest)
@@ -106,7 +98,7 @@ const App = () => {
   const [rental, setRental] = React.useState(defaults.rental)
   const [fixedOutgoings, setFixedOutgoings] = React.useState(defaults.fixedOutgoings)
 
-  const depositPercentage = (downPayment / propertyValue * 100).toFixed() + '%'
+  const depositPercentage = downPayment / propertyValue * 100
 
   const actualRepayments = repayments - fixedOutgoings / 52
   const effectiveRent = rental - fixedOutgoings / 52
@@ -122,59 +114,63 @@ const App = () => {
 
   return <div>
     <table>
-      <tr><th colSpan="3">Inputs</th></tr>
-      <tr><th colSpan="2"></th></tr>
-      <tr>
-        <td><label htmlFor="down">Down Payment</label></td>
-        <td><input type="number" step="1000" id="down" name="down" value={downPayment} onChange={(e) => setDownPayment(e.target.value)}/></td>
-      </tr>
+      <tbody>
+        <tr><th colSpan="3">Inputs</th></tr>
+        <tr><th colSpan="2"></th></tr>
+        <tr>
+          <td><label htmlFor="down">Down Payment</label></td>
+          <td><input type="number" step="1000" id="down" name="down" value={downPayment} onChange={(e) => setDownPayment(e.target.value)}/></td>
+        </tr>
 
-      <tr>
-        <td><label htmlFor="repayments">Weekly Repayments</label></td>
-        <td><input type="number" step="10" id="repayments" name="repayments" value={repayments} onChange={(e) => setRepayments(e.target.value)}/></td>
-        <td><span>Income that can be put towards the property on an ongoing basis. Could be thought of as the approx amount that currently goes to rent and most that goes to savings. Would likely still make minimum kiwisaver contributions and keep a splash fund aside.</span></td>
-      </tr>
+        <tr>
+          <td><label htmlFor="repayments">Weekly Repayments</label></td>
+          <td><input type="number" step="10" id="repayments" name="repayments" value={repayments} onChange={(e) => setRepayments(e.target.value)}/></td>
+          <td><span>Income that can be put towards the property on an ongoing basis. Could be thought of as the approx amount that currently goes to rent and most that goes to savings. Would likely still make minimum kiwisaver contributions and keep a splash fund aside.</span></td>
+        </tr>
 
-      <tr>
-        <td><label htmlFor="interest">Interest Rate (p.a.)</label></td>
-        <td><input type="number" step="0.01" id="interest" name="interest" value={interest} onChange={(e) => setInterest(e.target.value)}/></td>
-        <td><span>Nominal, may be composed of several composite rates/amounts</span></td>
-      </tr>
+        <tr>
+          <td><label htmlFor="interest">Interest Rate (p.a.)</label></td>
+          <td><input type="number" step="0.01" id="interest" name="interest" value={interest} onChange={(e) => setInterest(e.target.value)}/></td>
+          <td><span>Nominal, may be composed of several composite rates/amounts</span></td>
+        </tr>
 
-      <tr>
-        <td><label htmlFor="propertyValue">Property Value</label></td>
-        <td><input type="number" step="1000" id="propertyValue" name="propertyValue" value={propertyValue} onChange={(e) => setPropertyValue(e.target.value)}/></td>
-      </tr>
+        <tr>
+          <td><label htmlFor="propertyValue">Property Value</label></td>
+          <td><input type="number" step="1000" id="propertyValue" name="propertyValue" value={propertyValue} onChange={(e) => setPropertyValue(e.target.value)}/></td>
+        </tr>
 
-      <tr>
-        <td><label htmlFor="fixedOutgoings">Fixed Outgoings</label></td>
-        <td><input type="number" step="100" id="fixedOutgoings" name="fixedOutgoings" value={fixedOutgoings} onChange={(e) => setFixedOutgoings(e.target.value)}/></td>
-        <td><span>Body corp, maintenance allowance, rates etc. Ongoing stable expenses associated with owning the property. These are subtracted from Weekly Repayments and Rental before paying down the mortgage.</span></td>
-      </tr>
+        <tr>
+          <td><label htmlFor="fixedOutgoings">Fixed Outgoings</label></td>
+          <td><input type="number" step="100" id="fixedOutgoings" name="fixedOutgoings" value={fixedOutgoings} onChange={(e) => setFixedOutgoings(e.target.value)}/></td>
+          <td><span>Body corp, maintenance allowance, rates etc. Ongoing stable expenses associated with owning the property. These are subtracted from Weekly Repayments and Rental before paying down the mortgage.</span></td>
+        </tr>
 
-      <tr>
-        <td><label htmlFor="rental">Rental Appraisal (weekly)</label></td>
-        <td><input type="number" step="50" id="rental" name="rental" value={rental} onChange={(e) => setRental(e.target.value)}/></td>
-      </tr>
+        <tr>
+          <td><label htmlFor="rental">Rental Appraisal (weekly)</label></td>
+          <td><input type="number" step="50" id="rental" name="rental" value={rental} onChange={(e) => setRental(e.target.value)}/></td>
+        </tr>
+      </tbody>
     </table>
 
     <br/>
     <br/>
 
     <table>
-      <tr><th colSpan="4">Outputs</th></tr>
-      <tr>
-        <th style={{paddingRight: '2em'}}>Deposit Percentage</th>
-        <th style={{paddingRight: '2em'}}>Initial Mortgage Value</th>
-        <th style={{paddingRight: '2em'}}>Viable Mortgage Value</th>
-        <th>Time Till Viable</th>
-      </tr>
-      <tr>
-        <td>{depositPercentage}</td>
-        <td>${mortgageValue}</td>
-        <td>${viableMortgageValue}</td>
-        <td>{Math.floor(timeTillViable / 52)} years, {Math.round(timeTillViable % 52)} weeks</td>
-      </tr>
+      <tbody>
+        <tr><th colSpan="4">Outputs</th></tr>
+        <tr>
+          <th style={{paddingRight: '2em'}}>Deposit Percentage</th>
+          <th style={{paddingRight: '2em'}}>Initial Mortgage Value</th>
+          <th style={{paddingRight: '2em'}}>Viable Mortgage Value</th>
+          <th>Time Till Viable</th>
+        </tr>
+        <tr>
+          <td>{depositPercentage.toFixed(1) + '%'}</td>
+          <td>${mortgageValue}</td>
+          <td>${viableMortgageValue}</td>
+          <td>{Math.floor(timeTillViable / 52)} years, {Math.round(timeTillViable % 52)} weeks</td>
+        </tr>
+      </tbody>
     </table>
 
     <p>Viable – Approximated as the size of mortgage remaining that can be paid at the longes term available (30 years) by the rent alone (after paying the fixed outgoings).</p>
